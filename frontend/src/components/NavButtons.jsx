@@ -6,22 +6,22 @@ const NavButtons = ({ currentIndex, total, onNext, onPrev }) => {
   const isNextDisabled = currentIndex === total - 1 || total === 0;
 
   //keyboard navigation
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "ArrowLeft" && !isPrevDisabled) {
-        onPrev();
-      }
-      if (e.key === "ArrowRight" && !isNextDisabled) {
-        onNext();
-      }
-    };
+ useEffect(() => {
+  const handleKey = (e) => {
+    if (e.key === "ArrowLeft" && !isPrevDisabled) {
+      onPrev();
+    }
+    if (e.key === "ArrowRight" && !isNextDisabled) {
+      onNext();
+    }
+  };
 
-    window.addEventListener("keydown", handleKey);
+  window.addEventListener("keydown", handleKey);
 
-    return () => {
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, [currentIndex, total]);
+  return () => {
+    window.removeEventListener("keydown", handleKey);
+  };
+}, [isPrevDisabled, isNextDisabled, onNext, onPrev]);
 
   return (
     <div className="flex justify-center items-center gap-6 mt-6">
