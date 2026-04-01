@@ -50,12 +50,7 @@ const FileUpload = ({ onUpload }) => {
         </button>
       </div>
 
-      
-      {file && (
-        <p className="text-sm text-gray-600 mt-3 text-center">
-          Selected: <span className="font-medium">{file.name}</span>
-        </p>
-      )}
+     
     </div>
   );
 };
