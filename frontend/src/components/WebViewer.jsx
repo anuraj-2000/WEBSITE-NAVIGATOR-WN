@@ -11,11 +11,6 @@ const WebViewer = ({ url }) => {
     <div className="max-w-5xl mx-auto mt-6 bg-white shadow-lg rounded-2xl border overflow-hidden">
 
       
-      <div className="bg-yellow-50 text-yellow-700 text-sm text-center p-2 border-b">
-        If the site doesn’t load, click "Open in new tab"
-      </div>
-
-      
       <div className="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">
         <p className="text-sm text-gray-600 truncate max-w-[70%]">
           {url}
@@ -32,14 +27,13 @@ const WebViewer = ({ url }) => {
       </div>
 
       {/* Iframe Container */}
-      <div className="h-[500px]">
+      <div className="h-125">
         <iframe
           src={url}
           title="website"
           className="w-full h-full"
         />
       </div>
-
     </div>
   );
 };
