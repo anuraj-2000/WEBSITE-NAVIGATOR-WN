@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -20,43 +19,28 @@ const FileUpload = ({ onUpload }) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-6 p-6 bg-white shadow-lg rounded-2xl border">
+    <div className="flex gap-2 mb-4 justify-center items-center">
 
-      <h2 className="text-lg font-semibold mb-4 text-center">
-        Upload Excel / CSV File
-      </h2>
+      <input
+        type="file"
+        onChange={(e) => setFile(e.target.files[0])}
+        className="border p-2 rounded"
+      />
 
-      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <button
+        onClick={handleUpload}
+        disabled={!file}
+        className={`px-4 py-2 rounded text-white
+          ${
+            file
+              ? "bg-blue-500 hover:bg-blue-600"
+              : "bg-gray-400 cursor-not-allowed"
+          }
+        `}
+      >
+        Upload
+      </button>
 
-       
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="w-full sm:w-auto text-sm border border-gray-300 rounded-lg p-2 cursor-pointer file:bg-blue-600 file:text-white file:border-0 file:px-3 file:py-1 file:rounded file:cursor-pointer hover:file:bg-blue-700"
-        />
-
-        
-        <button
-          onClick={handleUpload}
-          disabled={!file}
-          className={`w-full sm:w-auto px-5 py-2 rounded-lg font-medium transition 
-            ${
-              file
-                ? "bg-blue-600 text-white hover:bg-blue-700"
-                : "bg-gray-400 text-white cursor-not-allowed"
-            }
-          `}
-        >
-          Upload
-        </button>
-      </div>
-
-      
-      {file && (
-        <p className="text-sm text-gray-600 mt-3 text-center">
-          Selected: <span className="font-medium">{file.name}</span>
-        </p>
-      )}
     </div>
   );
 };
