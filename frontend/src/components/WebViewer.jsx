@@ -2,7 +2,7 @@ const WebViewer = ({ url }) => {
   if (!url) {
     return (
       <div className="text-center mt-10 text-gray-500 text-lg">
-        🚫 No URLs loaded
+        🚫
       </div>
     );
   }
@@ -45,3 +45,4 @@ const WebViewer = ({ url }) => {
 };
 
 export default WebViewer;
+
