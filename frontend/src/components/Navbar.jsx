@@ -1,15 +1,3 @@
-// const Navbar = () => {
-//   return (
-//     <nav className="bg-blue-600 text-white p-4 text-xl font-bold text-center">
-//       Website Navigator
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
 
 const Navbar = () => {
   return (
