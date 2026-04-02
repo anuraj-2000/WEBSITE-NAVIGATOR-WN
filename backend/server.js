@@ -9,9 +9,14 @@ import path from "path";
 const app = express();
 app.use(cors());
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Multer setup
+
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
+}
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -23,7 +28,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Upload Route
+
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const filePath = req.file.path;
@@ -31,7 +36,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
     let urls = [];
 
-    // 📊 Excel
     if (ext === ".xlsx" || ext === ".xls") {
       const workbook = xlsx.readFile(filePath);
       const sheetName = workbook.SheetNames[0];
@@ -40,10 +44,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       );
 
       urls = data.map(row => row.URL).filter(Boolean);
-    }
-
-    // 📄 CSV
-    else if (ext === ".csv") {
+    } else if (ext === ".csv") {
       await new Promise((resolve) => {
         fs.createReadStream(filePath)
           .pipe(csv())
@@ -62,6 +63,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
