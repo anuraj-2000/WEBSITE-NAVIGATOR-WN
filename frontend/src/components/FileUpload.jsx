@@ -11,7 +11,7 @@ const FileUpload = ({ onUpload }) => {
     formData.append("file", file);
 
     const res = await axios.post(
-      "http://localhost:5000/upload",
+      "https://website-navigator-wn.onrender.com/upload",
       formData
     );
 
