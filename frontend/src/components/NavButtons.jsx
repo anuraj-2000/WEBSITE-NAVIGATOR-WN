@@ -29,7 +29,7 @@ const NavButtons = ({ currentIndex, total, onNext, onPrev }) => {
       <button
         onClick={onPrev}
         disabled={isPrevDisabled}
-        className={`w-32 py-2 rounded-lg font-medium transition duration-200
+        className={`w-32 py-2 rounded-lg font-medium transition duration-200 cursor-pointer
           ${
             isPrevDisabled
               ? "bg-gray-300 text-gray-600 cursor-not-allowed opacity-60"
@@ -49,7 +49,7 @@ const NavButtons = ({ currentIndex, total, onNext, onPrev }) => {
       <button
         onClick={onNext}
         disabled={isNextDisabled}
-        className={`w-32 py-2 rounded-lg font-medium transition duration-200
+        className={`w-32 py-2 rounded-lg font-medium transition duration-200 cursor-pointer
           ${
             isNextDisabled
               ? "bg-gray-300 text-gray-600 cursor-not-allowed opacity-60"
