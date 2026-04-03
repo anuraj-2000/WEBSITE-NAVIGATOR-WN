@@ -17,18 +17,32 @@ const FileUpload = ({ onUpload }) => {
 
       const res = await axios.post(
         "https://website-navigator-wn.onrender.com/upload",
-        formData
+        formData,
+        {
+          timeout: 15000,
+        }
       );
+
+  
+      if (!res.data.urls || res.data.urls.length === 0) {
+        alert("No URLs found in the file");
+        return;
+      }
 
       onUpload(res.data.urls);
       setFile(null);
 
     } catch (err) {
       console.error(err);
- 
-      alert("Upload failed");
+
+
+      if (err.code === "ECONNABORTED") {
+        alert("Server is taking too long. Please try again.");
+      } else {
+        alert("Upload failed. Please try again.");
+      }
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
 
@@ -65,6 +79,12 @@ const FileUpload = ({ onUpload }) => {
         </button>
 
       </div>
+
+      {loading && (
+        <p className="text-center text-sm text-gray-500 mt-3">
+          This may take a few seconds
+        </p>
+      )}
 
     </div>
   );
