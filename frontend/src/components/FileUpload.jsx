@@ -1,21 +1,35 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
 const FileUpload = ({ onUpload }) => {
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    try {
+      setLoading(true);
 
-    const res = await axios.post(
-      "https://website-navigator-wn.onrender.com/upload",
-      formData
-    );
+      const formData = new FormData();
+      formData.append("file", file);
 
-    onUpload(res.data.urls);
+      const res = await axios.post(
+        "https://website-navigator-wn.onrender.com/upload",
+        formData
+      );
+
+      onUpload(res.data.urls);
+      setFile(null);
+
+    } catch (err) {
+      console.error(err);
+ 
+      alert("Upload failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,33 +41,33 @@ const FileUpload = ({ onUpload }) => {
 
       <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
 
-
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
           className="w-full sm:w-auto text-sm border border-gray-300 rounded-lg p-2 cursor-pointer file:bg-blue-600 file:text-white file:border-0 file:px-3 file:py-1 file:rounded file:cursor-pointer hover:file:bg-blue-700"
         />
 
-       
         <button
           onClick={handleUpload}
-          disabled={!file}
-          className={`w-full sm:w-auto px-5 py-2 rounded-lg font-medium transition 
+          disabled={!file || loading}
+          className={`cursor-pointer w-full sm:w-auto px-5 py-2 rounded-lg font-medium flex items-center justify-center gap-2 transition 
             ${
-              file
+              file && !loading
                 ? "bg-blue-600 text-white hover:bg-blue-700"
                 : "bg-gray-400 text-white cursor-not-allowed"
             }
           `}
         >
-          Upload
+          {loading && (
+            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          )}
+          {loading ? "Uploading..." : "Upload"}
         </button>
+
       </div>
 
-     
     </div>
   );
 };
 
 export default FileUpload;
-
