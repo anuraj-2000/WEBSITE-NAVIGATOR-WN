@@ -2,8 +2,8 @@ const WebViewer = ({ url }) => {
   if (!url) {
     return (
       <div className="text-center mt-10 text-gray-500 text-lg">
-        🚫
-      </div>
+      Upload a file to start browsing
+    </div>
     );
   }
 
